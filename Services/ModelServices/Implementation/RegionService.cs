@@ -1,15 +1,12 @@
 ﻿using AutoMapper;
 using Date;
 using Models;
-using Services.Interfaces;
+using Services.ModelServices.Interfaces;
 using Services.ViewModels;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Services.Implementation
+namespace Services.ModelServices.Implementation
 {
     public class RegionService : IRegionService
     {
@@ -18,6 +15,7 @@ namespace Services.Implementation
             ApplicationDbContext = applicationDbContext;
             Mapper = mapper;
         }
+
         public ApplicationDbContext ApplicationDbContext { get; }
         public IMapper Mapper { get; }
 
@@ -31,6 +29,24 @@ namespace Services.Implementation
 
             List<RegionViewModel> regions = Mapper.Map<List<RegionViewModel>>(region);
             return regions;
+        }
+
+        public CountryViewModel SearchRegionByName(string name)
+        {
+
+            var country = ApplicationDbContext.Regions.FirstOrDefault(x => x.RegionName.ToUpper() == name.ToUpper());
+            var result = Mapper.Map<CountryViewModel>(country);
+
+            return result;
+        }
+
+        // Get sales by total profit
+        public List<SalesViewModel> TopSalesByTotalProfit()
+        {
+            var sales = ApplicationDbContext.Sales.GroupBy(x => x.TotalProfit).ToList();
+
+            var result = Mapper.Map<List<SalesViewModel>>(sales);
+            return result;
         }
     }
 }

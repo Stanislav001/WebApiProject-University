@@ -1,14 +1,12 @@
 ﻿using Services.ViewModels;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Services.Interfaces
+namespace Services.ModelServices.Interfaces
 {
     public interface IRegionService
     {
         public List<RegionViewModel> GetAllRegions();
+        public CountryViewModel SearchRegionByName(string name);
+        public List<SalesViewModel> TopSalesByTotalProfit();
     }
 }

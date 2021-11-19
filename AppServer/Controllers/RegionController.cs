@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Services.Interfaces;
+using Services.ModelServices.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace AppServer.Controllers
         public RegionController(IRegionService region)
         {
             Region = region;
+
         }
         public IRegionService Region { get; }
 
@@ -23,6 +25,20 @@ namespace AppServer.Controllers
         public IActionResult GetCompanies()
         {
             var result = Region.GetAllRegions();
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public IActionResult GetRegionByName(string name)
+        {
+            var result = Region.SearchRegionByName(name);
+            return Ok(result);
+        }
+
+        [HttpGet]
+        public IActionResult TopSalesByTotalProfit()
+        {
+            var result = Region.TopSalesByTotalProfit();
             return Ok(result);
         }
     }
