@@ -22,6 +22,7 @@ namespace AppServer.Controllers
         public IRegionService Region { get; }
 
         [HttpGet, Authorize]
+        [Route("companies")]
         public IActionResult GetCompanies()
         {
             var result = Region.GetAllRegions();
@@ -29,6 +30,7 @@ namespace AppServer.Controllers
         }
 
         [HttpGet]
+        [Route("regionByName")]
         public IActionResult GetRegionByName(string name)
         {
             var result = Region.SearchRegionByName(name);
@@ -36,6 +38,7 @@ namespace AppServer.Controllers
         }
 
         [HttpGet]
+        [Route("topSales")]
         public IActionResult TopSalesByTotalProfit()
         {
             var result = Region.TopSalesByTotalProfit();

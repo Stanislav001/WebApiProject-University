@@ -1,3 +1,4 @@
+using AppServer.ApiServices;
 using Date;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -10,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using Quartz;
 using Services.Implementation;
 using Services.Interfaces;
 using Services.MapperSettings;
@@ -34,6 +36,48 @@ namespace AppServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<QuartzOptions>(Configuration.GetSection("Quartz"));
+            services.Configure<QuartzOptions>(options =>
+            {
+                options.Scheduling.IgnoreDuplicates = true; 
+                options.Scheduling.OverWriteExistingData = true; 
+            });
+            services.AddQuartz(q =>
+            {
+                q.SchedulerId = "Scheduler-Core";
+
+                q.UseMicrosoftDependencyInjectionJobFactory();
+
+                q.UseSimpleTypeLoader();
+                q.UseInMemoryStore();
+                q.UseDefaultThreadPool(tp =>
+                {
+                    tp.MaxConcurrency = 10;
+                });
+                q.ScheduleJob<SchedFolderReaderJob>(trigger => trigger
+                    .WithIdentity("Combined Configuration Trigger")
+                    .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(7)))
+                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(5, IntervalUnit.Second))
+                    .WithDescription("trigger was called")
+                );
+                q.AddJob<SchedFolderReaderJob>(j => j
+                    .StoreDurably()
+                    .WithDescription("run job")
+                );
+
+            });
+            services.AddQuartzHostedService(options =>
+            {
+                options.WaitForJobsToComplete = true;
+            });
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
+            });
+
             services.AddControllers();
             services.AddAutoMapper(typeof(Profiles));
             services.AddScoped<IIdentityUser, IdentityUserService>();
