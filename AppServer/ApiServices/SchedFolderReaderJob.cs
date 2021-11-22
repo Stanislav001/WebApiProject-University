@@ -16,16 +16,15 @@ namespace AppServer.ApiServices
 {
     public class SchedFolderReaderJob : IJob
     {
-        private readonly IConfiguration configuration;
-        private ApplicationDbContext dbContext;
-        public SchedFolderReaderJob(IConfiguration configuration)
+        private ApplicationDbContext _dbContext;
+        public SchedFolderReaderJob(ApplicationDbContext dbContext)
         {
-            this.configuration = configuration;
+            _dbContext = dbContext;
         }
         public async Task Execute(IJobExecutionContext context)
         {
             FilesReader fileReader = new FilesReader();
-            var lastReadedFile = dbContext.LastReadedFiles.OrderByDescending(x => x.LastRead);
+            var lastReadedFile = _dbContext.LastReadedFiles.OrderByDescending(x => x.LastRead);
             var fileDate = Path.GetFileNameWithoutExtension(DirectoryString.FolderDirectory);
             if (lastReadedFile.Count() == 0)
             {
