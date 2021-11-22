@@ -15,6 +15,8 @@ using Quartz;
 using Services.Implementation;
 using Services.Interfaces;
 using Services.MapperSettings;
+using Services.ModelServices.Implementation;
+using Services.ModelServices.Interfaces;
 using Services.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -57,7 +59,7 @@ namespace AppServer
                 q.ScheduleJob<SchedFolderReaderJob>(trigger => trigger
                     .WithIdentity("Combined Configuration Trigger")
                     .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(7)))
-                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(5, IntervalUnit.Second))
+                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(20, IntervalUnit.Second))
                     .WithDescription("trigger was called")
                 );
                 q.AddJob<SchedFolderReaderJob>(j => j
@@ -82,6 +84,10 @@ namespace AppServer
             services.AddAutoMapper(typeof(Profiles));
             services.AddScoped<IIdentityUser, IdentityUserService>();
             //services.AddScoped<IRegionService, RegionService>();
+
+            services.AddScoped<ITransfer, Transfer>();
+            services.AddScoped<IFilesReader, FilesReader>();
+            services.AddScoped<IDatabaseTransfer,DatabaseTransfer>();
 
             services.AddDbContext<ApplicationDbContext>();
             services.Configure<TokenModel>(Configuration.GetSection("tokenManagement"));

@@ -2,6 +2,7 @@
 using Date;
 using Microsoft.EntityFrameworkCore;
 using Models;
+using Services.Interfaces;
 using Services.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
-    public class DatabaseTransfer
+    public class DatabaseTransfer: IDatabaseTransfer
     {
         public DatabaseTransfer(ApplicationDbContext appDbContext, IMapper mapper)
         {

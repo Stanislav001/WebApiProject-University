@@ -5,6 +5,7 @@ using Models;
 using Quartz;
 using Services.Common;
 using Services.Implementation;
+using Services.Interfaces;
 using Services.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -17,43 +18,25 @@ namespace AppServer.ApiServices
     public class SchedFolderReaderJob : IJob
     {
         private ApplicationDbContext _dbContext;
-        public SchedFolderReaderJob(ApplicationDbContext dbContext)
+        public IFilesReader Reader { get; }
+        public ITransfer Transfer { get; }
+        public IDatabaseTransfer Database { get; }
+        public SchedFolderReaderJob(ApplicationDbContext dbContext, IFilesReader reader, ITransfer transfer, IDatabaseTransfer database)
         {
             _dbContext = dbContext;
+            Reader = reader;
+            Transfer = transfer;
+            Database = database;
         }
         public async Task Execute(IJobExecutionContext context)
         {
-            FilesReader fileReader = new FilesReader();
-            var lastReadedFile = _dbContext.LastReadedFiles.OrderByDescending(x => x.LastRead);
-            var fileDate = Path.GetFileNameWithoutExtension(DirectoryString.FolderDirectory);
-            if (lastReadedFile.Count() == 0)
+            var dirFiles = Directory.GetFiles(DirectoryString.FolderDirectory);
+
+            foreach (var item in dirFiles)
             {
-                var models = fileReader.FileReader(DirectoryString.FolderDirectory).ToList();
-                Transfer transfer = new Transfer();
-                var data = transfer.ModelHandler(models);
-
-            }
-            else {
-                var last = lastReadedFile.First().LastRead.ToShortDateString();
-                if (DateTime.Parse(last) < DateTime.Parse(fileDate))
-                {
-                    var models = fileReader.FileReader(DirectoryString.FolderDirectory).ToList();
-                    Transfer transfer = new Transfer();
-                    var data = transfer.ModelHandler(models);
-
-                    var config = new MapperConfiguration(cfg =>
-                    {
-                        cfg.CreateMap<Region, RegionViewModel>().ReverseMap();
-                        cfg.CreateMap<Country, CountryViewModel>().ReverseMap();
-                        cfg.CreateMap<Order, OrderViewModel>().ReverseMap();
-                        cfg.CreateMap<Sales, SalesViewModel>().ReverseMap();
-                    });
-
-                    var mapper = new Mapper(config);
-                    DatabaseTransfer databaseTransfer = new DatabaseTransfer(new Date.ApplicationDbContext(), mapper);
-                    await databaseTransfer.TransferAsync(data, fileDate);
-
-                }
+                var files = Reader.FileReader(Path.Combine(DirectoryString.FolderDirectory, item)).ToList();
+                var models = Transfer.ModelHandler(files);
+                await Database.TransferAsync(models, item);
             }
         }
     }

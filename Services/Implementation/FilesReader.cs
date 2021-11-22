@@ -18,8 +18,16 @@ namespace Services.Implementation
             using (var reader = new StreamReader(dir))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
-                var records = csv.GetRecords<TransferViewModel>().ToList();
-                return records;
+                try
+                {
+                    var records = csv.GetRecords<TransferViewModel>().ToList();
+                    return records;
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+               
             }
         }
     }
