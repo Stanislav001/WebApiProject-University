@@ -32,7 +32,7 @@ namespace Date
                 switch (entry.State)
                 {
                     case EntityState.Added:
-                        entity.CreatedAt = DateTime.UtcNow;
+                        entity.CreatedAt = DateTime.Now;
                         break;
                 }
             }

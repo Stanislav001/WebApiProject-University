@@ -16,59 +16,60 @@ namespace TestApp
         static async Task Main()
         {
 
-            FilesReader filesReader = new FilesReader();
-            using (ApplicationDbContext dbContext = new ApplicationDbContext())
-            {
-                var lastReadedFile = dbContext.LastReadedFiles.OrderByDescending(x => x.LastRead);
+            //FilesReader filesReader = new FilesReader();
+            //using (ApplicationDbContext dbContext = new ApplicationDbContext())
+            //{
+            //    var lastReadedFile = dbContext.LastReadedFiles.OrderByDescending(x => x.LastRead);
 
-                foreach (var file in Directory.GetFiles(DirectoryString.FolderDirectory))
-                {
-                    var fileDate = Path.GetFileNameWithoutExtension(file);
-                    if (lastReadedFile.Count() == 0)
-                    {
-                        var models = filesReader.FileReader(file).ToList();
-                        Transfer transfer = new Transfer();
-                        var data = transfer.ModelHandler(models);
+            //    foreach (var file in Directory.GetFiles(DirectoryString.FolderDirectory))
+            //    {
+            //        var fileDate = Path.GetFileNameWithoutExtension(file);
+            //        if (lastReadedFile.Count() == 0)
+            //        {
+            //            var models = filesReader.FileReader(file).ToList();
+            //            Transfer transfer = new Transfer();
+            //            var data = transfer.ModelHandler(models);
 
-                        var config = new MapperConfiguration(cfg =>
-                        {
-                            cfg.CreateMap<Region, RegionViewModel>().ReverseMap();
-                            cfg.CreateMap<Country, CountryViewModel>().ReverseMap();
-                            cfg.CreateMap<Order, OrderViewModel>().ReverseMap();
-                            cfg.CreateMap<Sales, SalesViewModel>().ReverseMap();
-                        });
+            //            var config = new MapperConfiguration(cfg =>
+            //            {
+            //                cfg.CreateMap<Region, RegionViewModel>().ReverseMap();
+            //                cfg.CreateMap<Country, CountryViewModel>().ReverseMap();
+            //                cfg.CreateMap<Order, OrderViewModel>().ReverseMap();
+            //                cfg.CreateMap<Sales, SalesViewModel>().ReverseMap();
+            //            });
 
-                        var mapper = new Mapper(config);
-                        DatabaseTransfer databaseTransfer = new DatabaseTransfer(new Date.ApplicationDbContext(), mapper);
-                        await databaseTransfer.TransferAsync(data, fileDate);
+            //            var mapper = new Mapper(config);
+            //            DatabaseTransfer databaseTransfer = new DatabaseTransfer(new Date.ApplicationDbContext(), mapper);
+            //            await databaseTransfer.TransferAsync(data, fileDate);
 
-                    }
-                    else
-                    {
-                        var last = lastReadedFile.First().LastRead.ToShortDateString();
-                        if (DateTime.Parse(last) < DateTime.Parse(fileDate))
-                        {
-                            var models = filesReader.FileReader(file).ToList();
-                            Transfer transfer = new Transfer();
-                            var data = transfer.ModelHandler(models);
+            //        }
+            //        else
+            //        {
+            //            var last = lastReadedFile.First().LastRead.ToShortDateString();
+            //            if (DateTime.Parse(last) < DateTime.Parse(fileDate))
+            //            {
+            //                var models = filesReader.FileReader(file).ToList();
+            //                Transfer transfer = new Transfer();
+            //                var data = transfer.ModelHandler(models);
 
-                            var config = new MapperConfiguration(cfg =>
-                            {
-                                cfg.CreateMap<Region, RegionViewModel>().ReverseMap();
-                                cfg.CreateMap<Country, CountryViewModel>().ReverseMap();
-                                cfg.CreateMap<Order, OrderViewModel>().ReverseMap();
-                                cfg.CreateMap<Sales, SalesViewModel>().ReverseMap();
-                            });
+            //                var config = new MapperConfiguration(cfg =>
+            //                {
+            //                    cfg.CreateMap<Region, RegionViewModel>().ReverseMap();
+            //                    cfg.CreateMap<Country, CountryViewModel>().ReverseMap();
+            //                    cfg.CreateMap<Order, OrderViewModel>().ReverseMap();
+            //                    cfg.CreateMap<Sales, SalesViewModel>().ReverseMap();
+            //                });
 
-                            var mapper = new Mapper(config);
-                            DatabaseTransfer databaseTransfer = new DatabaseTransfer(new Date.ApplicationDbContext(), mapper);
-                            await databaseTransfer.TransferAsync(data, fileDate);
+            //                var mapper = new Mapper(config);
+            //                DatabaseTransfer databaseTransfer = new DatabaseTransfer(new Date.ApplicationDbContext(), mapper);
+            //                await databaseTransfer.TransferAsync(data, fileDate);
 
-                        }
-                    }
+            //            }
+            //        }
 
-                }
-            }
+            //    }
+            //}
         }
     }
 }
+
