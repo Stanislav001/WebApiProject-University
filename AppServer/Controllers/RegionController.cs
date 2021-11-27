@@ -22,8 +22,7 @@ namespace AppServer.Controllers
         public IRegionService Region { get; }
 
         [HttpGet, Authorize]
-        [Route("companies")]
-        public IActionResult GetCompanies()
+        public IActionResult GetRegions()
         {
             var result = Region.GetAllRegions();
             return Ok(result);
