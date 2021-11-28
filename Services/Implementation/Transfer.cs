@@ -20,6 +20,10 @@ namespace Services.Implementation
                 // Region check
                 if (region == null)
                 {
+                    /* if (models[i].TotalProfit > 0 && models[i].UnitPrice > 0 && models[i].RegionName != null)
+                     {
+
+                     }*/
                     regions.Add(new RegionViewModel()
                     {
                         RegionName = models[i].RegionName,
@@ -57,6 +61,10 @@ namespace Services.Implementation
 
                     if (country == null)
                     {
+                        /*if (country.Sales[i].TotalProfit != 0 && country.CountryName != null)
+                        {
+                            
+                        }*/
                         region.Countries.Add(new CountryViewModel()
                         {
                             CountryName = models[i].CountryName,
