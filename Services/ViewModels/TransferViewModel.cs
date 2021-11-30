@@ -1,6 +1,8 @@
 ﻿using CsvHelper.Configuration.Attributes;
+using Services.Common;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,8 +12,10 @@ namespace Services.ViewModels
     public class TransferViewModel
     {
         [Name("Region")]
+        [StringLength(Const.MAX_REGION_NAME_CHARS)]
         public string RegionName { get; set; }
         [Name("Country")]
+        [StringLength(Const.MAX_COUNTRY_NAME_CHARS)]
         public string CountryName { get; set; }
         [Name("Item Type")]
         public string ItemType { get; set; }

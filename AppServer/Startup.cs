@@ -83,11 +83,12 @@ namespace AppServer
             services.AddControllers();
             services.AddAutoMapper(typeof(Profiles));
             services.AddScoped<IIdentityUser, IdentityUserService>();
-            //services.AddScoped<IRegionService, RegionService>();
+            services.AddScoped<IRegionService, RegionService>();
 
             services.AddScoped<ITransfer, Transfer>();
             services.AddScoped<IFilesReader, FilesReader>();
             services.AddScoped<IDatabaseTransfer,DatabaseTransfer>();
+
 
             services.AddDbContext<ApplicationDbContext>();
             services.Configure<TokenModel>(Configuration.GetSection("tokenManagement"));

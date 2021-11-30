@@ -3,8 +3,6 @@ using Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
@@ -20,10 +18,23 @@ namespace Services.Implementation
                 // Region check
                 if (region == null)
                 {
-                    /* if (models[i].TotalProfit > 0 && models[i].UnitPrice > 0 && models[i].RegionName != null)
-                     {
 
-                     }*/
+                    if (models[i].TotalProfit < 0)
+                    {
+                        Console.WriteLine("Invalid field entered: TotalProfit in sale");
+                        models[i].TotalProfit = 0;
+                    }
+                    if (models[i].UnitPrice < 0)
+                    {
+                        Console.WriteLine("Invalid entered: unit price");
+                        models[i].UnitPrice = 0;
+                    }
+                    if (models[i].RegionName == null)
+                    {
+                        Console.WriteLine("The region name cannot be null!");
+                        break;
+                    }
+
                     regions.Add(new RegionViewModel()
                     {
                         RegionName = models[i].RegionName,
@@ -61,10 +72,17 @@ namespace Services.Implementation
 
                     if (country == null)
                     {
-                        /*if (country.Sales[i].TotalProfit != 0 && country.CountryName != null)
+                        if (country.Sales[i].TotalProfit < 0)
                         {
-                            
-                        }*/
+                            Console.WriteLine("Invalid field entered: TotalProfit in sale");
+                            country.Sales[i].TotalProfit = 0;
+                        }
+                        if (country.CountryName == null)
+                        {
+                            Console.WriteLine("The country name cannot be null!");
+                            break;
+                        }
+
                         region.Countries.Add(new CountryViewModel()
                         {
                             CountryName = models[i].CountryName,
