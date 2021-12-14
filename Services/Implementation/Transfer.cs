@@ -3,14 +3,15 @@ using Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
-    public class Transfer : ITransfer
+    public class Transfer 
     {
-        public List<RegionViewModel> ModelHandler(List<TransferViewModel> models)
+        public async Task<List<RegionViewModel>> ModelHandler(List<TransferViewModel> models)
         {
-            List<RegionViewModel> regions = new List<RegionViewModel>();
+            List<RegionViewModel> regions =  new List<RegionViewModel>();
 
             for (int i = 0; i < models.Count; i++)
             {
@@ -72,17 +73,7 @@ namespace Services.Implementation
 
                     if (country == null)
                     {
-                        if (country.Sales[i].TotalProfit < 0)
-                        {
-                            Console.WriteLine("Invalid field entered: TotalProfit in sale");
-                            country.Sales[i].TotalProfit = 0;
-                        }
-                        if (country.CountryName == null)
-                        {
-                            Console.WriteLine("The country name cannot be null!");
-                            break;
-                        }
-
+                        
                         region.Countries.Add(new CountryViewModel()
                         {
                             CountryName = models[i].CountryName,
@@ -136,6 +127,7 @@ namespace Services.Implementation
                     }
                 }
             }
+
             return regions;
         }
     }

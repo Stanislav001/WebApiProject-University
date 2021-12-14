@@ -24,7 +24,6 @@ namespace Services.Implementation
 
         public async Task TransferAsync(List<RegionViewModel> regions, string fileDate)
         {
-
             var data = Mapper.Map<List<Region>>(regions);
 
             var currentlyAddedInDb = ApplicationDbContext.Regions.Include(x => x.Countries)

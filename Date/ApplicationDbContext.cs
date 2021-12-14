@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Date
 {
-    public class ApplicationDbContext :DbContext
+    public class ApplicationDbContext : DbContext
     {
         public DbSet<Region> Regions { get; set; }
         public DbSet<Country> Countries { get; set; }

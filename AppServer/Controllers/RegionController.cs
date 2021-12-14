@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Services.Interfaces;
 using Services.ModelServices.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AppServer.Controllers
 {
@@ -30,7 +24,7 @@ namespace AppServer.Controllers
 
         [HttpGet]
         [Route("regionByName")]
-        public IActionResult GetRegionByName(string name)
+        public IActionResult GetRegionByName([FromBody]string name)
         {
             var result = Region.SearchRegionByName(name);
             return Ok(result);

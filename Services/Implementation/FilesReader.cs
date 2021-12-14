@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
@@ -23,9 +21,9 @@ namespace Services.Implementation
                     var records = csv.GetRecords<TransferViewModel>().ToList();
                     return records;
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    throw ex;
+                    throw;
                 }
                
             }
