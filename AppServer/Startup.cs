@@ -59,7 +59,7 @@ namespace AppServer
                 q.ScheduleJob<SchedFolderReaderJob>(trigger => trigger
                     .WithIdentity("Combined Configuration Trigger")
                     .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(7)))
-                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(10, IntervalUnit.Minute))
+                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(20, IntervalUnit.Second))
                     .WithDescription("trigger was called")
                 );
                 q.AddJob<SchedFolderReaderJob>(j => j

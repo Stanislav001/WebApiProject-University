@@ -9,6 +9,6 @@ namespace Services.Interfaces
 {
     public interface IFilesReader
     {
-        public IEnumerable<TransferViewModel> FileReader(string dir);
+        public List<TransferViewModel> FileReader(string dir);
     }
 }

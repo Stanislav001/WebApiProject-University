@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
-    public class Transfer 
+    public class Transfer : ITransfer
     {
-        public async Task<List<RegionViewModel>> ModelHandler(List<TransferViewModel> models)
+        public List<RegionViewModel> ModelHandler(List<TransferViewModel> models)
         {
-            List<RegionViewModel> regions =  new List<RegionViewModel>();
+            List<RegionViewModel> regions = new List<RegionViewModel>();
 
             for (int i = 0; i < models.Count; i++)
             {
@@ -73,7 +73,7 @@ namespace Services.Implementation
 
                     if (country == null)
                     {
-                        
+
                         region.Countries.Add(new CountryViewModel()
                         {
                             CountryName = models[i].CountryName,

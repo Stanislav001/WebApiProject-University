@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Services.Implementation
 {
-    public class DatabaseTransfer: IDatabaseTransfer
+    public class DatabaseTransfer : IDatabaseTransfer
     {
         public DatabaseTransfer(ApplicationDbContext appDbContext, IMapper mapper)
         {
@@ -44,14 +44,14 @@ namespace Services.Implementation
                     {
                         if (region.CountryName.FirstOrDefault(x => x == data[i].Countries[j].CountryName) != null)
                         {
-                           var countrytDb = ApplicationDbContext.Countries.Include(x => x.Orders).FirstOrDefault(x => x.CountryName == data[i].Countries[j].CountryName);
+                            var countrytDb = ApplicationDbContext.Countries.Include(x => x.Orders).FirstOrDefault(x => x.CountryName == data[i].Countries[j].CountryName);
 
                             countrytDb.Orders.AddRange(data[i].Countries[j].Orders);
                         }
                         else
                         {
-                           var dbRegion = ApplicationDbContext.Regions.Include(x=>x.Countries).FirstOrDefault(x => x.RegionName == data[i].RegionName);
-                           dbRegion.Countries.Add(data[i].Countries[j]);
+                            var dbRegion = ApplicationDbContext.Regions.Include(x => x.Countries).FirstOrDefault(x => x.RegionName == data[i].RegionName);
+                            dbRegion.Countries.Add(data[i].Countries[j]);
                         }
                     }
                 }

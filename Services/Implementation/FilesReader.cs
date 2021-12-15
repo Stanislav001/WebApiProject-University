@@ -11,7 +11,7 @@ namespace Services.Implementation
 {
     public class FilesReader : IFilesReader
     {
-        public IEnumerable<TransferViewModel> FileReader(string dir)
+        public List<TransferViewModel> FileReader(string dir)
         {
             using (var reader = new StreamReader(dir))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))

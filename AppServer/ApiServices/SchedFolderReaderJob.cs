@@ -39,7 +39,7 @@ namespace AppServer.ApiServices
                 foreach (var file in Directory.GetFiles(DirectoryString.FolderDirectory))
                 {
                     var fileDate = Path.GetFileNameWithoutExtension(file);
-                    if (lastReadedFile.Count() == 0) 
+                    if (lastReadedFile.Count() == 0)
                     {
                         var models = filesReader.FileReader(file).ToList();
                         Transfer transfer = new Transfer();
@@ -78,10 +78,8 @@ namespace AppServer.ApiServices
                             var mapper = new Mapper(config);
                             DatabaseTransfer databaseTransfer = new DatabaseTransfer(new Date.ApplicationDbContext(), mapper);
                             await databaseTransfer.TransferAsync(data, fileDate);
-
                         }
                     }
-
                 }
             }
         }
