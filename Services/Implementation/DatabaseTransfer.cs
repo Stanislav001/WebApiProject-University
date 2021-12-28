@@ -6,6 +6,7 @@ using Services.Interfaces;
 using Services.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -26,6 +27,8 @@ namespace Services.Implementation
         {
             var data = Mapper.Map<List<Region>>(regions);
 
+            var lastReadedDate = ApplicationDbContext.LastReadedFiles.OrderByDescending(x => x.LastRead);
+
             var currentlyAddedInDb = ApplicationDbContext.Regions.Include(x => x.Countries)
                                      .Select(x => new
                                      {
@@ -33,8 +36,17 @@ namespace Services.Implementation
                                          CountryName = x.Countries.Select(d => d.CountryName).ToList()
                                      }).ToList();
 
+            if (lastReadedDate.Count() > 0)
+            {
+                if (lastReadedDate.First().LastRead < DateTime.Parse(fileDate))
+                {
+                    // Тук да сложа логиката, а в елса просто да прочете първият файл
+                }
+            }
+
             for (int i = 0; i < data.Count; i++)
             {
+
                 var region = currentlyAddedInDb.FirstOrDefault(x => x.RegionName == data[i].RegionName);
                 // Region check
                 if (region != null)
@@ -60,9 +72,13 @@ namespace Services.Implementation
                     ApplicationDbContext.Regions.AddRange(data[i]);
                 }
             }
-            LastReadedFile lastReaded = new LastReadedFile();
-            lastReaded.LastRead = DateTime.Parse(fileDate);
-            ApplicationDbContext.LastReadedFiles.Add(lastReaded);
+
+
+            ApplicationDbContext.LastReadedFiles.Add(new LastReadedFile()
+            {
+                LastRead = DateTime.Parse(fileDate)
+            }
+            );
             var result = await ApplicationDbContext.SaveChangesAsync();
         }
     }

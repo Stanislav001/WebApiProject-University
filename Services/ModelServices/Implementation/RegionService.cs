@@ -33,7 +33,6 @@ namespace Services.ModelServices.Implementation
 
         public CountryViewModel SearchRegionByName(string name)
         {
-
             var country = ApplicationDbContext.Regions.FirstOrDefault(x => x.RegionName.ToUpper() == name.ToUpper());
             var result = Mapper.Map<CountryViewModel>(country);
 

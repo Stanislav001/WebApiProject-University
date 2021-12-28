@@ -3,8 +3,6 @@ using Date;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -19,10 +17,8 @@ using Services.ModelServices.Implementation;
 using Services.ModelServices.Interfaces;
 using Services.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace AppServer
 {
@@ -59,7 +55,7 @@ namespace AppServer
                 q.ScheduleJob<SchedFolderReaderJob>(trigger => trigger
                     .WithIdentity("Combined Configuration Trigger")
                     .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(7)))
-                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(20, IntervalUnit.Second))
+                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(5, IntervalUnit.Second))
                     .WithDescription("trigger was called")
                 );
                 q.AddJob<SchedFolderReaderJob>(j => j
@@ -84,6 +80,7 @@ namespace AppServer
             services.AddAutoMapper(typeof(Profiles));
             services.AddScoped<IIdentityUser, IdentityUserService>();
             services.AddScoped<IRegionService, RegionService>();
+            services.AddScoped<ICountryService, CountryService>();
 
             services.AddScoped<ITransfer, Transfer>();
             services.AddScoped<IFilesReader, FilesReader>();

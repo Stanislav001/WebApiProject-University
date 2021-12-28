@@ -1,11 +1,6 @@
 ﻿using AutoMapper;
 using Models;
 using Services.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.MapperSettings
 {
@@ -13,9 +8,18 @@ namespace Services.MapperSettings
     {
        public Profiles()
         {
-            CreateMap<Region, RegionViewModel>().ReverseMap();
-            CreateMap<Country, CountryViewModel>().ReverseMap();
-            CreateMap<Order, OrderViewModel>().ReverseMap();
+            CreateMap<Region, RegionViewModel>()
+               // .ForPath(x=>x.Countries, z => z.MapFrom(a=>a.Countries))
+                .ReverseMap();
+
+            CreateMap<Country, CountryViewModel>()
+               // .ForPath(x=>x.Orders, z=>z.MapFrom(a=>a.Orders))
+                .ReverseMap();
+
+            CreateMap<Order, OrderViewModel>()
+               // .ForPath(x=>x.Sales, z=>z.MapFrom(a=>a.Sales))
+                .ReverseMap();
+
             CreateMap<Sales, SalesViewModel>().ReverseMap();
             CreateMap<User, UserViewModel>().ReverseMap();
         }
