@@ -1,5 +1,4 @@
-﻿
-namespace Services.Common
+﻿namespace Services.Common
 {
     public class DirectoryString
     {

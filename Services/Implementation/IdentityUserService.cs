@@ -1,10 +1,6 @@
 ﻿using AutoMapper;
-using Date;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using Models;
-using Services.Interfaces;
-using Services.ViewModels;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -14,6 +10,11 @@ using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+
+using Date;
+using Models;
+using Services.Interfaces;
+using Services.ViewModels;
 
 namespace Services.Implementation
 {

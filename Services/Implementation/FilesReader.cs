@@ -1,12 +1,13 @@
 ﻿using CsvHelper;
-using Date;
-using Services.Interfaces;
-using Services.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+
+using Date;
+using Services.Interfaces;
+using Services.ViewModels;
 
 namespace Services.Implementation
 {

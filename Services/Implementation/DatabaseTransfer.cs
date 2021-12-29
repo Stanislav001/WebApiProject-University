@@ -1,14 +1,14 @@
 ﻿using AutoMapper;
-using Date;
 using Microsoft.EntityFrameworkCore;
-using Models;
-using Services.Interfaces;
-using Services.ViewModels;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+
+using Services.Interfaces;
+using Services.ViewModels;
+using Models;
+using Date;
 
 namespace Services.Implementation
 {
@@ -35,14 +35,6 @@ namespace Services.Implementation
                                          RegionName = x.RegionName,
                                          CountryName = x.Countries.Select(d => d.CountryName).ToList()
                                      }).ToList();
-
-            if (lastReadedDate.Count() > 0)
-            {
-                if (lastReadedDate.First().LastRead < DateTime.Parse(fileDate))
-                {
-                    // Тук да сложа логиката, а в елса просто да прочете първият файл
-                }
-            }
 
             for (int i = 0; i < data.Count; i++)
             {

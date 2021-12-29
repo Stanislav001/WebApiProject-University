@@ -1,6 +1,6 @@
-﻿using Models.BaseModels;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+
+using Models.BaseModels;
 
 namespace Models
 {

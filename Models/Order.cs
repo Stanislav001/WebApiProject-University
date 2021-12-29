@@ -1,7 +1,7 @@
-﻿using Models.BaseModels;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Text;
+
+using Models.BaseModels;
 
 namespace Models
 {

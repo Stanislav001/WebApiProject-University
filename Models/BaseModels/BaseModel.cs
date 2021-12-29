@@ -1,7 +1,6 @@
-﻿using Models.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System;
+
+using Models.Interfaces;
 
 namespace Models.BaseModels
 {
