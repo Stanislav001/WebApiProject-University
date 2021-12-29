@@ -34,11 +34,14 @@ namespace AppServer.ApiServices
             FilesReader filesReader = new FilesReader();
             using (ApplicationDbContext dbContext = new ApplicationDbContext())
             {
+                string[] files = Directory.GetFiles(DirectoryString.FolderDirectory);
+
                 var lastReadedFile = dbContext.LastReadedFiles.OrderByDescending(x => x.LastRead);
 
-                foreach (var file in Directory.GetFiles(DirectoryString.FolderDirectory))
+                foreach (var file in files)
                 {
                     var fileDate = Path.GetFileNameWithoutExtension(file);
+
                     if (lastReadedFile.Count() == 0)
                     {
                         var models = filesReader.FileReader(file).ToList();
@@ -56,11 +59,12 @@ namespace AppServer.ApiServices
                         var mapper = new Mapper(config);
                         DatabaseTransfer databaseTransfer = new DatabaseTransfer(new Date.ApplicationDbContext(), mapper);
                         await databaseTransfer.TransferAsync(data, fileDate);
-
                     }
+
                     else
                     {
                         var last = lastReadedFile.First().LastRead.ToShortDateString();
+
                         if (DateTime.Parse(last) < DateTime.Parse(fileDate))
                         {
                             var models = filesReader.FileReader(file).ToList();
