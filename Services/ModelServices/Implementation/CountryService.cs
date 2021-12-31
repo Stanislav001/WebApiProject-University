@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
-using Date;
-using Models;
-using Services.ModelServices.Interfaces;
-using Services.ViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+
+using Date;
+using Services.ModelServices.Interfaces;
+using Services.ViewModels;
+using Models;
 
 namespace Services.ModelServices.Implementation
 {
@@ -53,7 +55,7 @@ namespace Services.ModelServices.Implementation
         // Get country by name
         public CountryViewModel SearchCountryByName(string name)
         {
-            var country = ApplicationDbContext.Countries
+            var country = ApplicationDbContext.Countries.Include(x => x.Orders)
                           .FirstOrDefault(x => x.CountryName.ToUpper() == name.ToUpper());
 
             var result = Mapper.Map<CountryViewModel>(country);
