@@ -31,10 +31,11 @@ namespace Services.ModelServices.Implementation
             return regions;
         }
 
-        public CountryViewModel SearchRegionByName(string name)
+        public RegionViewModel SearchRegionByName(string name)
         {
-            var country = ApplicationDbContext.Regions.FirstOrDefault(x => x.RegionName.ToUpper() == name.ToUpper());
-            var result = Mapper.Map<CountryViewModel>(country);
+            var region = ApplicationDbContext.Regions.FirstOrDefault(x => x.RegionName.ToUpper() == name.ToUpper());
+
+            var result = Mapper.Map<RegionViewModel>(region);
 
             return result;
         }
@@ -47,5 +48,6 @@ namespace Services.ModelServices.Implementation
             var result = Mapper.Map<List<SalesViewModel>>(sales);
             return result;
         }
+
     }
 }
