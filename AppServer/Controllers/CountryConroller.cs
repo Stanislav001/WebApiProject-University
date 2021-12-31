@@ -14,7 +14,7 @@ namespace AppServer.Controllers
         public ICountryService CountryService { get; }
 
         [HttpGet]
-        [Route("companies")]
+        [Route("countries")]
         public IActionResult GetCompanies()
         {
             var result = CountryService.GetAllCountries();
@@ -22,8 +22,8 @@ namespace AppServer.Controllers
         }
 
         [HttpGet]
-        [Route("companyByName")]
-        public IActionResult GetCompnayByName(string name)
+        [Route("countryByName")]
+        public IActionResult GetCountryByName(string name)
         {
             var result = CountryService.SearchCountryByName(name);
             return Ok(result);
@@ -34,6 +34,15 @@ namespace AppServer.Controllers
         public IActionResult GetTotalOrdersByCountry()
         {
             var result = CountryService.GetTotalOrdersByCountry();
+            return Ok(result);
+        }
+
+        [HttpGet]
+        [Route("countryByRegionName")]
+        public IActionResult GetCountryByRegion(string name)
+        {
+            var result = CountryService.GetCountryByRegion(name);
+
             return Ok(result);
         }
     }
