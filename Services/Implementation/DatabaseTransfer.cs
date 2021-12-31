@@ -65,7 +65,6 @@ namespace Services.Implementation
                 }
             }
 
-
             ApplicationDbContext.LastReadedFiles.Add(new LastReadedFile()
             {
                 LastRead = DateTime.Parse(fileDate)

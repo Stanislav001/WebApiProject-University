@@ -80,7 +80,7 @@ namespace AppServer.ApiServices
                             });
 
                             var mapper = new Mapper(config);
-                            DatabaseTransfer databaseTransfer = new DatabaseTransfer(new Date.ApplicationDbContext(), mapper);
+                            DatabaseTransfer databaseTransfer = new DatabaseTransfer(new ApplicationDbContext(), mapper);
                             await databaseTransfer.TransferAsync(data, fileDate);
                         }
                     }
