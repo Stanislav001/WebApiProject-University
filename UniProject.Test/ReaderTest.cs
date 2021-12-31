@@ -3,6 +3,7 @@ using Xunit;
 using Services.Implementation;
 using System;
 using System.Linq;
+using System.IO;
 
 namespace UniProject.Test
 {
@@ -20,7 +21,6 @@ namespace UniProject.Test
 
             var list = filesReader.FileReader(fileDate);
 
-            //Assert
             Assert.Empty(list);
 
         }
@@ -40,6 +40,23 @@ namespace UniProject.Test
             }
 
             Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void Reading_Incorrect_File_Format()
+        {
+
+            Assert.Throws<Exception>(() =>
+                {
+                    var fileDate = @"D:\UniProject\UniProject.Test\02.10.2021.word";
+
+                    string extension = Path.GetExtension(fileDate);
+
+                    if (extension != "csv")
+                    {
+                        throw new Exception();
+                    }
+                });
         }
     }
 }
