@@ -28,7 +28,7 @@ namespace TestApp
              }
             */
 
-            HttpClient httpClient = new HttpClient();
+           /* HttpClient httpClient = new HttpClient();
             Task<HttpContent> auth = Task.Run(() =>
             {
                 Thread.Sleep(TimeSpan.FromSeconds(10));
@@ -46,6 +46,7 @@ namespace TestApp
                 return httpClient.GetAsync("https://localhost:5001/api/Continents/countries_cost").Result.Content;
 
             });
+           */
         }
     }
 }
