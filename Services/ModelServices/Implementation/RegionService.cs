@@ -1,10 +1,12 @@
 ﻿using AutoMapper;
+using System.Collections.Generic;
+using System.Linq;
+
 using Date;
 using Models;
 using Services.ModelServices.Interfaces;
 using Services.ViewModels;
-using System.Collections.Generic;
-using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace Services.ModelServices.Implementation
 {
@@ -33,7 +35,7 @@ namespace Services.ModelServices.Implementation
 
         public RegionViewModel SearchRegionByName(string name)
         {
-            var region = ApplicationDbContext.Regions.FirstOrDefault(x => x.RegionName.ToUpper() == name.ToUpper());
+            var region = ApplicationDbContext.Regions.Include(x=>x.Countries).FirstOrDefault(x => x.RegionName.ToUpper() == name.ToUpper());
 
             var result = Mapper.Map<RegionViewModel>(region);
 
