@@ -24,7 +24,7 @@ namespace AppServer.Controllers
 
         [HttpGet]
         [Route("regionByName")]
-        public IActionResult GetRegionByName([FromBody]string name)
+        public IActionResult GetRegionByName(string name)
         {
             var result = Region.SearchRegionByName(name);
             return Ok(result);
