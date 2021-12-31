@@ -34,9 +34,9 @@ namespace Services.ModelServices.Implementation
         }
 
         // Get country by region
-        public List<CountryViewModel> GetCountryByRegion(string id)
+        public List<CountryViewModel> GetCountryByRegion(string name)
         {
-            var country = ApplicationDbContext.Countries.Where(x => x.Id == id).ToList();
+            var country = ApplicationDbContext.Countries.Where(x => x.Region.RegionName == name).ToList();
             var result = Mapper.Map<List<CountryViewModel>>(country);
 
             return result;
