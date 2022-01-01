@@ -1,9 +1,9 @@
 using Xunit;
-
-using Services.Implementation;
 using System;
 using System.Linq;
 using System.IO;
+
+using Services.Implementation;
 
 namespace UniProject.Test
 {
@@ -48,7 +48,7 @@ namespace UniProject.Test
 
             Assert.Throws<Exception>(() =>
                 {
-                    var fileDate = @"D:\UniProject\UniProject.Test\02.10.2021.word";
+                    var fileDate = @"D:\UniProject\UniProject.Test\02.10.2021.docx";
 
                     string extension = Path.GetExtension(fileDate);
 
