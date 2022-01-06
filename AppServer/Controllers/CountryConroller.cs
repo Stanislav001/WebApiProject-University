@@ -1,10 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Services.ModelServices.Interfaces;
 
 namespace AppServer.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    //[Authorize]
+
     public class CountryConroller : ControllerBase
     {
         public CountryConroller(ICountryService countryService)
@@ -15,6 +18,7 @@ namespace AppServer.Controllers
 
         [HttpGet]
         [Route("countries")]
+       // [AllowAnonymous]
         public IActionResult GetCompanies()
         {
             var result = CountryService.GetAllCountries();
