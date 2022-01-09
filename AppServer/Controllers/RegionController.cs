@@ -29,13 +29,5 @@ namespace AppServer.Controllers
             var result = Region.SearchRegionByName(name);
             return Ok(result);
         }
-
-        [HttpGet]
-        [Route("topSales")]
-        public IActionResult TopSalesByTotalProfit()
-        {
-            var result = Region.TopSalesByTotalProfit();
-            return Ok(result);
-        }
     }
 }
