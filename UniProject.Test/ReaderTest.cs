@@ -4,6 +4,7 @@ using System.Linq;
 using System.IO;
 
 using Services.Implementation;
+using Services.Exceptions;
 
 namespace UniProject.Test
 {
@@ -45,7 +46,6 @@ namespace UniProject.Test
         [Fact]
         public void Reading_Incorrect_File_Format()
         {
-
             Assert.Throws<Exception>(() =>
                 {
                     var fileDate = @"D:\UniProject\UniProject.Test\02.10.2021.docx";
@@ -58,5 +58,7 @@ namespace UniProject.Test
                     }
                 });
         }
+
+        // how to test database? inMemoryDataabse
     }
 }

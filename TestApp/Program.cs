@@ -13,40 +13,67 @@ namespace TestApp
     {
         static void Main(string[] args)
         {
-            /* string page = "https://localhost:5001/country";
+            /* Register request test
+            
+            string registerUrl = "https://localhost:5001/api/Identity";
 
-             using (HttpClient client = new HttpClient())
-             using (HttpRequestMessage response = client.GetAsync(page).Result)
-             using (HttpContent content = response.Content)
-             {
-                 string result = content.ReadAsStringAsync().Result;
+            var user = new UserViewModel()
+            {
+                UserName = "Tester",
+                Password = "Testing_1234567",
+                ConfirmPassword = "Testing_1234567",
+            };
 
-                 if (result != null && result.Length >= 50)
-                 {
-                     Console.WriteLine(result.Substring(0,50) + "....");
-                 }
-             }
+            var json = JsonConvert.SerializeObject(user);
+
+            var data = new StringContent(json, Encoding.UTF8, "application/json");
+
+            using var client = new HttpClient();
+
+            var response = await client.PostAsync(registerUrl, data);
+
+            string res = response.Content.ReadAsStringAsync().Result;
             */
 
-           /* HttpClient httpClient = new HttpClient();
-            Task<HttpContent> auth = Task.Run(() =>
+            /* Login request test
+
+            string loginUrl = "https://localhost:5001/api/Identity/login";
+
+            var userLogin = new UserViewModel()
             {
-                Thread.Sleep(TimeSpan.FromSeconds(10));
+                UserName = "Tester",
+                Password = "Testing_1234567",
+            };
 
-                var content = JsonConvert.SerializeObject(new User() { UserName = "stanislav", Password = "Stanislav01!@@" });
-                StringContent stringContent = new StringContent(content, Encoding.UTF8, "application/json");
+            var jsonLogin = JsonConvert.SerializeObject(userLogin);
 
-                return httpClient.PostAsync("https://localhost:5001/api/auth/login", stringContent).Result.Content;
-            });
+            var dataLogin = new StringContent(jsonLogin, Encoding.UTF8, "application/json");
 
-            Task<HttpContent> t = Task.Run(() =>
-            {
-                var token = auth.Result.ReadAsStringAsync().Result;
-                httpClient.DefaultRequestHeaders.Authorization =  new AuthenticationHeaderValue("Bearer", token);
-                return httpClient.GetAsync("https://localhost:5001/api/Continents/countries_cost").Result.Content;
+            using var clientLogin = new HttpClient();
 
-            });
-           */
+            var responseLogin = await clientLogin.PostAsync(loginUrl, dataLogin);
+
+            string resultLogin = responseLogin.Content.ReadAsStringAsync().Result;
+            */
+
+            /* Custom requests test
+
+            string regionUrl = "https://localhost:5001/api/Region";
+
+            clientLogin.DefaultRequestHeaders.Authorization = new
+                System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", resultLogin);
+
+            HttpResponseMessage resultRegion = await clientLogin.GetAsync(regionUrl);
+
+            string regions = await resultRegion.Content.ReadAsStringAsync();
+            */
         }
+    }
+    public class UserViewModel
+    {
+        public string UserName { get; set; }
+        public string Password { get; set; }
+        public string ConfirmPassword { get; set; }
+        public string PasswordHash { get; set; }
     }
 }
