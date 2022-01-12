@@ -1,5 +1,6 @@
 ﻿using Models;
 using Newtonsoft.Json;
+using Services.ViewModels;
 using System;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -11,7 +12,7 @@ namespace TestApp
 {
     public class Program
     {
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             /* Register request test
             
@@ -35,8 +36,7 @@ namespace TestApp
             string res = response.Content.ReadAsStringAsync().Result;
             */
 
-            /* Login request test
-
+            /*  Login request test
             string loginUrl = "https://localhost:5001/api/Identity/login";
 
             var userLogin = new UserViewModel()
@@ -66,14 +66,8 @@ namespace TestApp
             HttpResponseMessage resultRegion = await clientLogin.GetAsync(regionUrl);
 
             string regions = await resultRegion.Content.ReadAsStringAsync();
-            */
+           */
         }
     }
-    public class UserViewModel
-    {
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public string ConfirmPassword { get; set; }
-        public string PasswordHash { get; set; }
-    }
+   
 }
