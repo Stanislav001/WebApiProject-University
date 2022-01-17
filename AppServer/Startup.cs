@@ -1,24 +1,24 @@
-using AppServer.ApiServices;
-using Date;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Quartz;
-using Services.Implementation;
-using Services.Interfaces;
 using Services.MapperSettings;
-using Services.ModelServices.Implementation;
-using Services.ModelServices.Interfaces;
-using Services.ViewModels;
 using System;
 using System.Linq;
 using System.Text;
+
+using Date;
+using Services.ModelServices.Implementation;
+using Services.ModelServices.Interfaces;
+using Services.ViewModels;
+using Services.Implementation;
+using Services.Interfaces;
+using AppServer.ApiServices;
 
 namespace AppServer
 {
@@ -34,6 +34,7 @@ namespace AppServer
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Set Quartz
             services.Configure<QuartzOptions>(Configuration.GetSection("Quartz"));
             services.Configure<QuartzOptions>(options =>
             {
@@ -55,7 +56,7 @@ namespace AppServer
                 q.ScheduleJob<SchedFolderReaderJob>(trigger => trigger
                     .WithIdentity("Combined Configuration Trigger")
                     .StartAt(DateBuilder.EvenSecondDate(DateTimeOffset.UtcNow.AddSeconds(7)))
-                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(6, IntervalUnit.Minute))
+                    .WithDailyTimeIntervalSchedule(x => x.WithInterval(1, IntervalUnit.Minute))
                     .WithDescription("trigger was called")
                 );
                 q.AddJob<SchedFolderReaderJob>(j => j
@@ -69,6 +70,7 @@ namespace AppServer
                 options.WaitForJobsToComplete = true;
             });
 
+            // JwtBearerToken 
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -77,6 +79,7 @@ namespace AppServer
             });
 
             services.AddControllers();
+            // Add custom services
             services.AddAutoMapper(typeof(Profiles));
             services.AddScoped<IIdentityUser, IdentityUserService>();
             services.AddScoped<IRegionService, RegionService>();
@@ -85,7 +88,6 @@ namespace AppServer
             services.AddScoped<ITransfer, Transfer>();
             services.AddScoped<IFilesReader, FilesReader>();
             services.AddScoped<IDatabaseTransfer,DatabaseTransfer>();
-
 
             services.AddDbContext<ApplicationDbContext>();
             services.Configure<TokenModel>(Configuration.GetSection("tokenManagement"));

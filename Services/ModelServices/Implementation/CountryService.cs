@@ -23,10 +23,11 @@ namespace Services.ModelServices.Implementation
         // Get all countries
         public List<CountryViewModel> GetAllCountries()
         {
-            List<Country> country = ApplicationDbContext.Countries
+            List<Country> country = ApplicationDbContext.Countries.Include(o => o.Orders)
                                   .Select(x => new Country()
                                   {
-                                      CountryName = x.CountryName
+                                      CountryName = x.CountryName,
+                                      //Orders = x.Orders
                                   }).ToList();
 
             List<CountryViewModel> countries = Mapper.Map<List<CountryViewModel>>(country);

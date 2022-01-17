@@ -34,9 +34,9 @@ namespace TestApp
             var response = await client.PostAsync(registerUrl, data);
 
             string res = response.Content.ReadAsStringAsync().Result;
-            */
+            
 
-            /*  Login request test
+            //Login request test
             string loginUrl = "https://localhost:5001/api/Identity/login";
 
             var userLogin = new UserViewModel()
@@ -54,9 +54,11 @@ namespace TestApp
             var responseLogin = await clientLogin.PostAsync(loginUrl, dataLogin);
 
             string resultLogin = responseLogin.Content.ReadAsStringAsync().Result;
-            */
+            
 
-            /* Custom requests test
+            // REQUESTS TESTS
+
+            // GET all regions
 
             string regionUrl = "https://localhost:5001/api/Region";
 
@@ -66,7 +68,23 @@ namespace TestApp
             HttpResponseMessage resultRegion = await clientLogin.GetAsync(regionUrl);
 
             string regions = await resultRegion.Content.ReadAsStringAsync();
-           */
+           
+            var regionJsonResult = JsonConvert.DeserializeObject(regions);
+
+            Console.WriteLine(regionJsonResult);
+
+            // GET all countries
+
+            string countryUrl = "https://localhost:5001/api/CountryConroller/countries";
+
+            HttpResponseMessage counriesResult = await cl.GetAsync(countryUrl);
+
+            string countries = await counriesResult.Content.ReadAsStringAsync();
+
+            var countryJson = JsonConvert.DeserializeObject(countries);
+
+            Console.WriteLine(countryJson);
+             */
         }
     }
    
