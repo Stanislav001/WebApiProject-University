@@ -1,0 +1,10 @@
+Region,Country,Item Type,Sales Channel,Order Priority,Order Date,Order ID,Ship Date,Units Sold,Unit Price,Unit Cost,Total Revenue,Total Cost,Total Profit
+Asia,Uzbekistan,Meat,Offline,M,12/11/2017,551557290,12/20/2017,6914,421.89,364.69,2916947.46,2521466.66,395480.80
+Middle East and North Africa,Jordan,Beverages,Offline,M,2/29/2020,183577525,3/13/2020,3524,47.45,31.79,167213.80,112027.96,55185.84
+Australia and Oceania,Federated States of Micronesia,Snacks,Offline,H,8/6/2015,417167890,8/8/2015,8104,152.58,97.44,1236508.32,789653.76,446854.56
+Central America and the Caribbean,Saint Kitts and Nevis ,Household,Offline,C,7/4/2013,264877212,7/20/2013,1908,668.27,502.54,1275059.16,958846.32,316212.84
+Europe,Kosovo,Cereal,Offline,H,12/17/2013,159566819,12/24/2013,8223,205.70,117.11,1691471.10,962995.53,728475.57
+Sub-Saharan Africa,Democratic Republic of the Congo,Fruits,Online,H,3/8/2013,604410541,3/25/2013,7365,9.33,6.92,68715.45,50965.80,17749.65
+Asia,India,Snacks,Offline,L,8/6/2019,822894704,9/25/2019,1684,152.58,97.44,256944.72,164088.96,92855.76
+Asia,Taiwan,Clothes,Offline,L,5/22/2016,108818137,7/9/2016,560,109.28,35.84,61196.80,20070.40,41126.40
+Central America and the Caribbean,Trinidad and Tobago,Meat,Offline,H,5/4/2020,976292169,5/21/2020,5403,421.89,364.69,2279471.67,1970420.07,309051.60
